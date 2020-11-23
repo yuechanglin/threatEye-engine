@@ -3,8 +3,8 @@
     <div class="logo">
       <img class="l_product_logo" src="@/assets/images/login/logo.png" alt="logo"/>
       <span class="l_product_title">ThreatEye</span>
-      <h4 class="l_product_name">ThreatEye高级威胁检测系统</h4>
-      <p class="l_product_content">ThreatEye Advanced Threat Detection System</p>
+      <h4 class="l_product_name">ThreatEye高级威胁检测引擎</h4>
+      <p class="l_product_content">ThreatEye Advanced Threat Detection Engine</p>
     </div>
 
     <div class="login-box">
