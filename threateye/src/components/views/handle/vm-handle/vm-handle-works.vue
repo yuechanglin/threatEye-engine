@@ -2024,7 +2024,7 @@ export default {
       });
       var handle_sel_list = []
 
-      console.log(this.edit.handle_sel);
+      //console.log(this.edit.handle_sel);
 
       this.edit.handle_sel.forEach(element => {
         handle_sel_list.push(element.id)
