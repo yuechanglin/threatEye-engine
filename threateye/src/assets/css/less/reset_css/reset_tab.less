@@ -1,0 +1,29 @@
+/* el-tab 添加reset_tab */
+.reset_tab {
+  .el-tabs__nav-wrap::after {
+    background-color: #eef6ff;
+  }
+
+  .el-tabs__header {
+    margin: 0 0 24px;
+  }
+
+  .el-tabs__item {
+    height: 38px;
+    padding: 0 !important;
+    width: 164px;
+    text-align: center;
+    font-size: 14px;
+    color: #bbbbbb;
+
+    &.is-active {
+      color: #0070FF;
+      background: #EEF6FF;
+    }
+  }
+
+  .el-tabs__active-bar {
+    top: 0;
+    width: 100%;
+  }
+}

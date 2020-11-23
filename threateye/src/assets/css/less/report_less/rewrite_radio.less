@@ -1,0 +1,33 @@
+/**
+ *此样式为保苗模块下单选框样式重写
+ *创建者ycl 时间2020-01-20
+**/
+/deep/
+.el-radio{
+  margin-right: 0;
+  width: 120px;
+  .el-radio__input{
+    .el-radio__inner{
+      width: 16px;
+      height: 16px;
+      border-radius: 100%;
+      &:after{
+        width: 0;
+        height: 0;
+      }
+    }
+    &.is-checked{
+      .el-radio__inner{
+        background-position: -1px -1px;
+        background-repeat: no-repeat;
+        background-size: 16px;
+        background-image: url("../../../images/common/check.png");
+      }
+    }
+  }
+  &.is-checked{
+    .el-radio__label{
+      color: #333;
+    }
+  }
+}

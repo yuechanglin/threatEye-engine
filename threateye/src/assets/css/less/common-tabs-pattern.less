@@ -1,0 +1,81 @@
+/**
+ *追查
+ *此样式作用域为追查模块下切换按钮、搜索系列、下载按钮等公用样式
+ *创建者ycl 时间2020-01-05
+**/
+@import "common-pattern.less";
+.common-invest{
+  padding: 24px;
+  .invest{
+    background: #fff;
+    padding: 24px;
+    border-radius: 4px;
+    min-height: 756px;
+    /deep/
+    .el-tabs{
+      .el-tabs__header{
+        .el-tabs__nav-wrap{
+          &:after{
+            background-color:#EEF6FF;
+          }
+          .el-tabs__nav{
+            /*line*/
+            z-index: 0;
+            .el-tabs__active-bar{
+              top: 0!important;
+              width: 164px!important;
+              background-color: #0070FF;
+              transition: transform .1s cubic-bezier(.645,.045,.355,1),
+              -webkit-transform .1s cubic-bezier(.645,.045,.355,1);
+            }
+            /*tabs*/
+            .el-tabs__item{
+              padding: 0!important;
+              width: 164px;
+              font-size: 14px;
+              color: #bbb;
+              position: relative;
+              &.is-active{
+                color: #0070FF;
+                background: #EEF6FF;
+              }
+              .el-tab-pane_i{
+                position: absolute;
+                display: block;
+                width: 20px;
+                height: 20px;
+              }
+            }
+          }
+        }
+      }
+      .el-tabs__content{
+        .invest_form{
+          position: relative;
+          /*height: 70px;*/
+          .common_box{
+            border-width: 0;
+          }
+          .s_download{
+            position: absolute;
+            right: 0;
+            top: 9px;
+            width: 124px;
+            height: 40px;
+            outline: none;
+            border-width: 0;
+            color: #fff;
+            border-radius: 4px;
+            background: #0070FF;
+            font-family: PingFang;
+            font-size: 16px;
+          }
+        }
+        .invest_table{
+          margin: 15px 0 0;
+        }
+      }
+    }
+  }
+}
+

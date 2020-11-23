@@ -1,0 +1,147 @@
+/**
+ *此样式带(全选)的table公共样式
+ *创建者ycl 时间2020-01-05
+**/
+/deep/
+.common-table {
+  width: 100%;
+  font-family: PingFangMedium;
+  .el-table__header-wrapper {
+    .el-table__header {
+      thead.has-gutter {
+        th {
+          background: #f8f8f8;
+          /*padding: 0.48rem 0 !important;*/
+          .cell {
+            font-family: PingFangMedium;
+            color: #333;
+            font-size: 18px;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+  .el-table__body-wrapper {
+    tbody {
+      td {
+        font-family: PingFangMedium;
+        font-size: 16px;
+        color: #666;
+        border-top-width: 0;
+        border-left-width: 0;
+        border-right-width: 0;
+        border-bottom: 1px solid #ececec;
+        .cell {
+          line-height: initial!important;
+          .new_dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 10px;
+            background: #ff5f5c;
+            float: right;
+          }
+          .fall_certainty {
+            width: 72px;
+            /*height: 30px;*/
+            display: inline-block;
+            color: #fff;
+            background-color: #dc5f5f;
+            text-align: center;
+            line-height: normal;
+            border-radius: 2px;
+          }
+
+          .el-checkbox {
+            display: grid;
+          }
+
+          .a_label {
+            padding: 0 2px;
+            margin: 0 2px;
+            color: #fff;
+            background: #5389e0;
+            border-radius: 2px;
+          }
+
+          .high {
+            color: #dc5f5f;
+          }
+
+          .mid {
+            color: #e0c840;
+          }
+
+          .low {
+            color: #47cad9;
+          }
+
+          .high_background {
+            background: #dc5f5f
+          }
+
+          .mid_background {
+            background: #e0c840
+          }
+
+          .low_background {
+            background: #47cad9
+          }
+        }
+      }
+    }
+  }
+
+  .el-table__fixed {
+    &:before {
+      height: 0;
+    }
+    .el-table__fixed-header-wrapper {
+      .el-table__header {
+        thead {
+          th {
+            background: #f8f8f8;
+         /*   padding: 0.48rem 0 !important;*/
+            white-space: nowrap;
+            font-size: 0px;
+            &.el-table-column--selection {
+              border-right: 1px solid #EBEEF5;
+            }
+          }
+        }
+      }
+    }
+
+    .el-table__fixed-body-wrapper {
+      tbody {
+        td {
+          font-family: PingFangMedium;
+          font-size: 16px;
+          color: #666;
+          border-top-width: 0;
+          border-left-width: 0;
+          border-right-width: 0;
+          border-bottom: 1px solid #ececec;
+          .cell {
+            line-height: inherit!important;
+            .new_dot {
+              width: 8px;
+              height: 8px;
+              border-radius: 10px;
+              background: #ff5f5c;
+              float: right;
+            }
+            label{
+              line-height: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/deep/ .el-pagination {
+  text-align: center;
+  margin: 20px 0;
+}

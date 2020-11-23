@@ -1,0 +1,216 @@
+/**
+ *此样式为搜索框、下拉框、按钮、重置、以及一般性按钮组的公共样式
+ *创建者ycl 时间2020-01-05
+**/
+@import './common-dropdown.less';
+.common-pattern {
+  text-align: left;
+  .title {
+    text-align: left;
+    font-size: 18px;
+    color: #333;
+  }
+  .common_box {
+    padding: 9px 0;
+    line-height: normal;
+    border-bottom: 1px solid #ececec;
+    .common_box_list {
+      font-size: 0;
+      text-align: left;
+      .s_key {
+        height: 40px;
+        width: 164px;
+        margin-right: 8px;
+        line-height: 40px;
+        display: inline-block;
+        /deep/
+        .el-input__inner {
+          border-width: 0;
+          font-size: 14px;
+          height: 40px;
+          background: #F8F8F8;
+          font-family: PingFang;
+        }
+        &.s_key_types{
+          margin-left: 8px;
+        }
+      }
+
+      .s_key1 {
+        height: 40px;
+        width: 230px;
+        margin-right: 9px;
+        line-height: 40px;
+        display: inline-block;
+        /deep/
+        .el-input__inner {
+          border-width: 0;
+          font-size: 14px;
+          height: 40px;
+          background: #F8F8F8;
+          font-family: PingFang;
+        }
+        &.s_key1_ok{
+          margin-left: 9px;
+        }
+      }
+      .s_key_network{
+        height: 40px;
+        width: 356px;
+        margin-right: 45px;
+        line-height: 40px;
+        display: inline-block;
+        text-align: justify;
+        /deep/
+        .el-input__inner {
+          border-width: 0;
+          font-size: 14px;
+          height: 40px;
+          background: #F8F8F8;
+          font-family: PingFang;
+        }
+        &.s_key_types{
+          margin-left: 8px;
+        }
+        &.s_key_types_network{
+          margin-left: 45px;
+        }
+        &.s_key_types_network_ok{
+          margin-right: 0;
+        }
+      }
+      .s_key_network1{
+        height: 40px;
+        width: 400px;
+        margin-right: 45px;
+        line-height: 40px;
+        display: inline-block;
+        text-align: justify;
+        /deep/
+        .el-input__inner {
+          border-width: 0;
+          font-size: 14px;
+          height: 40px;
+          background: #F8F8F8;
+          font-family: PingFang;
+        }
+        &.s_key_types{
+          margin-left: 8px;
+        }
+        &.s_key_types_network{
+          margin-left: 20px;
+        }
+      }
+      .s_key_network2{
+        height: 40px;
+        width: 356px;
+        margin-right: 30px;
+        line-height: 40px;
+        display: inline-block;
+        text-align: justify;
+        /deep/
+        .el-input__inner {
+          border-width: 0;
+          font-size: 14px;
+          height: 40px;
+          background: #F8F8F8;
+          font-family: PingFang;
+        }
+        &.s_key_types{
+          margin-left: 8px;
+        }
+        &.s_key_types_network{
+          margin-left: 20px;
+        }
+      }
+      /deep/
+      .el-date-editor{
+        /*border: 1px solid #F8F8F8;*/
+        height: 40px;
+        vertical-align: bottom;
+        min-width: 250px!important;
+        .el-range-input{
+          font-size: 14px;
+          &:hover{
+            font-size: 14px;
+          }
+        }
+      }
+      /deep/
+      .b_btn{
+        background: #F8F8F8;
+        border-width: 0;
+        height: 40px;
+        width: 164px;
+        margin-left: 8px;
+        font-family: PingFang;
+        font-size: 14px;
+        color: #BBBBBB;
+
+      }
+      /deep/
+      .s_btn1_ok{
+        margin-left: 0px!important;
+      }
+      /deep/
+      .dropdown_ul_box{
+        width: 164px;
+        margin-left: 8px;
+        background: red;
+      }
+      /deep/
+      .s_btn {
+        display: inline-block;
+        width: 102px;
+        height: 40px;
+        line-height: 0;
+        outline: none;
+        border-width: 0;
+        color: #fff;
+        margin: 0 16px;
+        background: #0070FF;
+        font-family: PingFang;
+        font-size: 16px;
+        .el-input__inner{
+          &:hover{
+            font-size: 16px;
+          }
+        }
+      }
+      /deep/
+      .s_link {
+        color: #0070FF;
+        margin-left: 8px;
+        vertical-align: baseline;
+        text-decoration: none;
+        font-family: PingFang;
+        font-size: 16px;
+        &:hover{
+          text-decoration: none;
+        }
+        &::after{
+          text-decoration: none;
+          border-width: 0;
+        }
+      }
+      /deep/
+      .s_btn_edit{
+        background: #fff;
+        height: 40px;
+        width: 102px;
+        float: right;
+        font-family: PingFang;
+        font-size: 14px;
+        color: #0070ff;
+        line-height: 0;
+        border: 1px solid #0070ff;
+      }
+      &.common_box_list_network{
+        margin-top: 20px;
+      }
+    }
+
+  }
+}
+
+
