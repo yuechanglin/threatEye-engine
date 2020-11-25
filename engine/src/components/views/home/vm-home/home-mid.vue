@@ -1,12 +1,12 @@
 <template>
-  <div id="flow"></div>
+  <div id="memery"></div>
 </template>
 
 <script type="text/ecmascript-6">
 export default {
-  name: "flow",
+  name: "memery",
   props: {
-    top_mid: {
+    options: {
       type: Object,
       default: () => { }
     }
@@ -17,33 +17,30 @@ export default {
   methods: {
     graph () {
 
-      //console.log(this.top_mid)
-      if(!!!this.top_mid){
+      if(!!!this.options){
         return false;
       }
 
-      let statistics_time = this.top_mid.statistics_time;
-      let flow_diff = []
-      this.top_mid.flow_diff.forEach(element => {
-        flow_diff.push(Math.floor(element * 100) / 100)
-      });
+      let statistics_time = this.options.statistics_time;
+
+      let xAxis = this.options.mem;
 
       // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("flow"));
+      let myChart = this.$echarts.init(document.getElementById("memery"));
 
       myChart.showLoading({ text: '正在加载数据...' });
       myChart.clear();
       // 绘制图表
       myChart.setOption({
         grid: {
-          top: "8%",
-          left: 36,
-          right: "4%",
+          top: "20%",
+          left: '2.5%',
+          right: "1%",
           bottom: 24
         },
         tooltip: {
           trigger: "axis",
-          borderColor: "rgba(76,175,80,0.3)",
+          borderColor: "rgba(205,220,57,0.3)",
           borderWidth: 2,
           backgroundColor: "#fff",
           textStyle: {
@@ -55,7 +52,6 @@ export default {
             }
           }
         },
-        color: ["#4CAF50"],
         xAxis: {
           boundaryGap: false,
           //网格样式
@@ -86,6 +82,12 @@ export default {
           data: statistics_time
         },
         yAxis: {
+          name: '单位(%)',
+          nameTextStyle: {
+            color: '#666'
+          },
+          min:0,
+          max:100,
           splitLine: {
             show: true,
             lineStyle: {
@@ -109,16 +111,25 @@ export default {
             show: false
           }
         },
+        visualMap: [{
+          show: false,
+          type: 'piecewise',
+          pieces: [{
+            gt: 85,
+            color: '#dc5f5f'
+          }, {
+            gt: 0,
+            lte: 85,
+            color: "rgba(205,220,57,0.9)"
+          }]
+        }],
         series: [
           {
-            name: "流量",
+            name: "内存",
             type: "line",
             symbol: "none",
-            data: flow_diff,
+            data: xAxis,
             smooth: true,
-            lineStyle: {
-              color: "#4CAF50"
-            },
             areaStyle: {
               color: {
                 type: "linear",
@@ -129,16 +140,15 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: "rgba(76,175,80,0.3)" // 0% 处的颜色
+                    color: "rgba(205,220,57,0.3)" // 0% 处的颜色
                   },
                   {
                     offset: 1,
-                    color: "rgba(76,175,80,0.1)" // 100% 处的颜色
+                    color: "rgba(205,220,57,0)" // 100% 处的颜色
                   }
                 ]
               }
-            },
-
+            }
           }
         ]
       });
@@ -153,7 +163,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-#flow {
+#memery {
   height: 100%;
 }
 </style>

@@ -1,43 +1,41 @@
 <template>
-  <div id="system_control_electric"
+  <div id="system_control_record"
        class="container">
     <div class="content_box">
-      <div class="network_tab">
-        <el-tabs v-model="activeName"
-                 @tab-click="handleClick"
-                 class="reset_tab">
-          <el-tab-pane label="网卡配置"
-                       class="tabs-item"
-                       name="first">
-            <network-card v-if="tab_show.first"></network-card>
-          </el-tab-pane>
-          <el-tab-pane label="代理服务器"
-                       class="tabs-item"
-                       name="second">
-            <proxy-server v-if="tab_show.second"></proxy-server>
-          </el-tab-pane>
-          <el-tab-pane label="路由设置"
-                       class="tabs-item"
-                       name="third">
-            <router-set v-if="tab_show.third"></router-set>
-          </el-tab-pane>
-        </el-tabs>
-      </div>
+      <el-tabs v-model="activeName"
+               @tab-click="handleClick"
+               class="reset_tab">
+        <el-tab-pane label="审计日志"
+                     class="tabs-item"
+                     name="first">
+          <audit-log v-if="tab_show.first"></audit-log>
+        </el-tab-pane>
+        <el-tab-pane label="SYSLOG配置"
+                     class="tabs-item"
+                     name="second">
+          <syslog-set v-if="tab_show.second"></syslog-set>
+        </el-tab-pane>
+        <el-tab-pane label="故障日志"
+                     class="tabs-item"
+                     name="third">
+          <fault-log v-if="tab_show.third"></fault-log>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
-import networkCard from "@/components/views/system/vm-electric/network-card";
-import proxyServer from "@/components/views/system/vm-electric/proxy-server";
-import routerSet from "@/components/views/system/vm-electric/router-set";
+import auditLog from "@/components/views/setting/vm-record/audit-log";
+import faultLog from "@/components/views/setting/vm-record/fault-log";
+import syslogSet from "@/components/views/setting/vm-record/syslog-set";
 import { eventBus } from '@/components/common/eventBus.js';
 export default {
   components: {
-    networkCard,
-    proxyServer,
-    routerSet
+    auditLog,
+    faultLog,
+    syslogSet
   },
-  name: "system_control_electric",
+  name: "system_control_record",
   data () {
     return {
       activeName: "first",
@@ -105,9 +103,7 @@ export default {
         default:
           break;
       }
-
     }
-
   }
 };
 </script>
@@ -117,5 +113,3 @@ export default {
 <style scoped lang='less'>
 @import '../../../assets/css/less/system/setting/common_box.less';
 </style>
-
-

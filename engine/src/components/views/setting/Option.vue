@@ -71,13 +71,13 @@
           <img class="titile_icon"
                src="@/assets/images/setting/sys.png"
                alt="">
-          <span>登录IP地址设置（最多5个单IP/IP网段）</span>
+          <span>统一管理平台设置（最多5个单IP/IP网段）</span>
         </p>
         <div style="margin-bottom:24px;">
           <div class="item_addrs"
                v-for="(item,index) in option.login_ip">
             <el-input class="select_box"
-                      placeholder="IP地址或网段（CIDR格式如192.168.1.0/24）"
+                      placeholder="请输入统一管理平台IP地址（CIDR格式如192.168.1.0/24）"
                       v-model="item.ip"
                       clearable>
             </el-input>

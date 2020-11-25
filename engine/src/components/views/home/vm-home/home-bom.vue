@@ -1,12 +1,12 @@
 <template>
-  <div id="file"></div>
+  <div id="disk"></div>
 </template>
 
 <script type="text/ecmascript-6">
 export default {
-  name: "file",
+  name: "disk",
   props: {
-    top_mid: {
+    options: {
       type: Object,
       default: () => { }
     }
@@ -16,28 +16,30 @@ export default {
   },
   methods: {
     graph () {
-      var file_count_diff = []
-      this.top_mid.file_count_diff.forEach(element => {
-        file_count_diff.push(Math.floor(element * 100) / 100)
-      });
-      let statistics_time = this.top_mid.statistics_time;
+      if(!!!this.options){
+        return false;
+      }
+
+      let statistics_time = this.options.statistics_time;
+
+      let xAxis = this.options.disk;
 
       // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("file"));
+      let myChart = this.$echarts.init(document.getElementById("disk"));
 
       myChart.showLoading({ text: '正在加载数据...' });
       myChart.clear();
       // 绘制图表
       myChart.setOption({
         grid: {
-          top: "8%",
-          left: 36,
-          right: "4%",
+          top: "20%",
+          left: '2.5%',
+          right: "1%",
           bottom: 24
         },
         tooltip: {
           trigger: "axis",
-          borderColor: "rgba(2,136,209,0.3)",
+          borderColor: "rgba(76,175,80,0.3)",
           borderWidth: 2,
           backgroundColor: "#fff",
           textStyle: {
@@ -49,7 +51,7 @@ export default {
             }
           }
         },
-        color: ["#0288D1"],
+        color: ["#4CAF50"],
         xAxis: {
           boundaryGap: false,
           //网格样式
@@ -80,6 +82,12 @@ export default {
           data: statistics_time
         },
         yAxis: {
+          name: '单位(%)',
+          nameTextStyle: {
+            color: '#666'
+          },
+          min:0,
+          max:100,
           splitLine: {
             show: true,
             lineStyle: {
@@ -103,17 +111,25 @@ export default {
             show: false
           }
         },
+        visualMap: [{
+          show: false,
+          type: 'piecewise',
+          pieces: [{
+            gt: 80,
+            color: '#dc5f5f'
+          }, {
+            gt: 0,
+            lte: 80,
+            color: "rgba(76,175,80,0.9)"
+          }]
+        }],
         series: [
           {
-            name: "文件",
+            name: "硬盘",
             type: "line",
             symbol: "none",
-            cursor: "pointer",
+            data: xAxis,
             smooth: true,
-            data: file_count_diff,
-            lineStyle: {
-              color: "#0288D1"
-            },
             areaStyle: {
               color: {
                 type: "linear",
@@ -124,11 +140,11 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: "rgba(2,136,209,0.3)" // 0% 处的颜色
+                    color: "rgba(76,175,80,0.3)" // 0% 处的颜色
                   },
                   {
                     offset: 1,
-                    color: "rgba(2,136,209,0.1)" // 100% 处的颜色
+                    color: "rgba(76,175,80,0)" // 100% 处的颜色
                   }
                 ]
               }
@@ -147,7 +163,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-#file {
+#disk {
   height: 100%;
 }
 </style>

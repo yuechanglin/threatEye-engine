@@ -25,9 +25,9 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-import userManagement from "@/components/views/system/vm-account/user-management";
-import roleManagement from "@/components/views/system/vm-account/role-management";
-import securityPolicy from "@/components/views/system/vm-account/security-policy";
+import userManagement from "@/components/views/setting/vm-account/user-management";
+import roleManagement from "@/components/views/setting/vm-account/role-management";
+import securityPolicy from "@/components/views/setting/vm-account/security-policy";
 import { eventBus } from '@/components/common/eventBus.js';
 export default {
   components: {

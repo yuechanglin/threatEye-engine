@@ -27,9 +27,9 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-import networkCard from "@/components/views/system/vm-electric/network-card";
-import proxyServer from "@/components/views/system/vm-electric/proxy-server";
-import routerSet from "@/components/views/system/vm-electric/router-set";
+import networkCard from "@/components/views/setting/vm-electric/network-card";
+import proxyServer from "@/components/views/setting/vm-electric/proxy-server";
+import routerSet from "@/components/views/setting/vm-electric/router-set";
 import { eventBus } from '@/components/common/eventBus.js';
 export default {
   components: {

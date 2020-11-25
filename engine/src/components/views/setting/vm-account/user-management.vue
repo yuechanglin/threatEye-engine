@@ -414,7 +414,7 @@ export default {
     get_menu () {
       this.$axios.get('/yiiapi/site/menu')
         .then(response => {
-          console.log(response);
+         // console.log(response);
         })
         .catch(error => {
           console.log(error);
@@ -431,7 +431,7 @@ export default {
       })
         .then(response => {
           this.loading = false
-          console.log(response);
+          //console.log(response);
           this.user_list = response.data.data
           this.user_list.data.forEach((item, index) => {
             item.index_cn = index + 1
@@ -450,7 +450,7 @@ export default {
         }
       })
         .then(response => {
-          console.log(response);
+        //  console.log(response);
           this.user_add.role_list = response.data.data.data
           this.user_edit.role_list = response.data.data.data
         })
@@ -462,7 +462,7 @@ export default {
     getPwdLength () {
       this.$axios.get('/yiiapi/site/get-passwd-length')
         .then(response => {
-          console.log(response);
+         // console.log(response);
           this.user_data.password = response.data.data
           this.user_data.placeholder = '请输入包含大写、小写、数字和特殊字符其中三项,' + response.data.data.min_passwd_len + '-' + response.data.data.max_passwd_len + '位密码'
         })
@@ -523,7 +523,7 @@ export default {
         email_addr: this.user_add.email_addr,
       })
         .then(response => {
-          console.log(response);
+         // console.log(response);
           if (response.data.status == 1) {
             this.$message(
               {
@@ -599,7 +599,7 @@ export default {
         }
       })
         .then(response => {
-          console.log(response.data);
+         // console.log(response.data);
           this.token_data = response.data.data
           localStorage.setItem("token", response.data.data.token);
           this.$axios.put('/yiiapi/user/reset-password?token=' + localStorage.getItem("token"), {
@@ -664,7 +664,7 @@ export default {
           }
         })
           .then(response => {
-            console.log(response);
+            //console.log(response);
             if (response.data.status == 0) {
               this.get_data();
               this.$message(
