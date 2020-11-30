@@ -5,10 +5,10 @@ import moment from "moment"
 Vue.filter('time', function (value) {
   if (value) {
     value = value.toString();
-    if (value.length == 10) {
+    /*if (value.length == 10) {
       value = value * 1000;
-    }
-    return moment(value).format('YYYY-MM-DD HH:mm:ss')
+    }*/
+    return moment.unix(value).format('YYYY-MM-DD HH:mm:ss')
   }
 
 });
