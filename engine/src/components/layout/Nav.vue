@@ -51,16 +51,10 @@
             </div>
             <el-dropdown-menu slot="dropdown"
                               class="nav-dropdown-menu">
-              <!--<a target='_blank'
+              <a target='_blank'
                  @click="modifyPassword()">
                 <el-dropdown-item>
                   修改个人信息
-                </el-dropdown-item>
-              </a>-->
-              <a target='_blank'
-                 @click="modifyPass()">
-                <el-dropdown-item>
-                  修改密码
                 </el-dropdown-item>
               </a>
               <el-dropdown-item divided>
@@ -158,60 +152,6 @@
                    @click="edit_user">确定</el-button>
       </div>
     </el-dialog>
-
-    <!-- 修改密码弹窗 ycl-->
-    <el-dialog class="pop_box_password"
-               :close-on-click-modal="false"
-               :modal-append-to-body="false"
-               :visible.sync="modify.state">
-      <img src="@/assets/images/emerge/closed.png"
-           @click="closed_modify_box"
-           class="closed_img"
-           alt="">
-      <div class="title">
-        <div class="mask"></div>
-        <span class="title_name">修改密码</span>
-      </div>
-      <div class="content">
-        <div class="content_item">
-          <p>
-            <span class="title">原密码
-              <span class="it_m">*</span>
-            </span>
-          </p>
-          <el-input class="select_box"
-                    placeholder="请输入原密码"
-                    v-model="modify.old_password"
-                    show-password></el-input>
-        </div>
-        <div class="content_item">
-          <p>
-            <span class="title">新密码</span>
-          </p>
-          <el-input class="select_box"
-                    placeholder="请输入新密码"
-                    v-model="modify.new_password"
-                    show-password>
-          </el-input>
-        </div>
-        <div class="content_item">
-          <p>
-            <span class="title">确认密码</span>
-          </p>
-          <el-input class="select_box"
-                    placeholder="请再次输入新密码"
-                    v-model="modify.re_new_password"
-                    show-password>
-          </el-input>
-        </div>
-      </div>
-      <div class="btn_box">
-        <el-button @click="closed_modify_box"
-                   class="cancel_btn">取消</el-button>
-        <el-button class="ok_btn"
-                   @click="submit_modify_box">确定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
@@ -244,12 +184,6 @@ export default {
         role: "",
         id: "",
         allow_ip: ''
-      },
-      modify:{
-        state:false,
-        old_password:'',
-        new_password:'',
-        re_new_password:''
       },
       news_count: 0
     };
@@ -317,122 +251,6 @@ export default {
           console.log(error);
         })
     },
-
-    /**
-     *以下是修改密码
-    * */
-    //修改密码
-    modifyPass(){
-      this.modify.state = true;
-
-      this.modify.old_password = '';
-      this.modify.new_password = '';
-      this.modify.re_new_password = '';
-    },
-    //修改密码取消
-    closed_modify_box(){
-      this.modify.state = false;
-      this.modify.old_password = '';
-      this.modify.new_password = '';
-      this.modify.re_new_password = '';
-    },
-    //修改密码确认
-    submit_modify_box(){
-      if (this.modify.old_password == '') {
-        this.$message(
-          {
-            message: '旧密码不能为空',
-            type: 'warning',
-          }
-        );
-        return false
-      }
-      if (this.modify.new_password == '') {
-        this.$message(
-          {
-            message: '新密码不能为空',
-            type: 'warning',
-          }
-        );
-        return false
-      }
-      if (this.modify.re_new_password == '') {
-        this.$message(
-          {
-            message: '确认密码不能为空',
-            type: 'warning',
-          }
-        );
-        return false
-      }
-      if (!this.regex(this.modify.new_password)) {
-        this.$message(
-          {
-            message: '密码必须同时包含大写、小写、数字和特殊字符其中三项',
-            type: 'warning',
-          }
-        );
-        return false
-      }
-      if (this.modify.new_password != this.modify.re_new_password ) {
-        this.$message(
-          {
-            message: '两次输入密码不一致',
-            type: 'warning',
-          }
-        );
-        return false
-      }
-
-      this.$axios.put('/yiiapi/site/reset-self-password?token=' + localStorage.getItem("token"), {
-        ResetPasswordForm: {
-          password: this.user_edit.password,
-          email_addr: this.user_edit.email_addr,
-          mobile: this.user_edit.mobile,
-          department: this.user_edit.department,
-        },
-        old_password: this.user_edit.old_password
-      })
-        .then(response => {
-          if (response.data.status == 0) {
-            this.$message({
-              message: '修改密码成功',
-              type: 'success'
-            });
-            this.modify.state = false;
-            localStorage.removeItem("token");
-
-            if (this.modify.new_password != '') {
-              setTimeout(() => {
-                removeToken();
-                this.$axios.get('/yiiapi/site/logout')
-                  .then(response => {
-                    if (response.data.status == 0) {
-                      console.log('退出');
-                      location.reload();
-                      //In order to re-instantiate the vue-router object to avoid bugs
-                      this.$router.push('/login');
-                    }
-                  }).catch(error => {
-                  console.log(error);
-                })
-              }, 500);
-            }
-          } else {
-            this.$message(
-              {
-                message: '修改密码失败',
-                type: 'error',
-              }
-            );
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        })
-
-    },
-
     /**
      *以下是修改个人信息
      * */

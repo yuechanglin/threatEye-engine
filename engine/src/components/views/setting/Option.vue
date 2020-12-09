@@ -1,5 +1,5 @@
 <template>
-  <div id="system_control_option"
+  <div id="system_control_option" v-loading.fullscreen.lock="loading"
        class="container">
     <div class="content_box">
       <div class="top">
@@ -66,18 +66,92 @@
                    class="btn_i"
                    @click="save_time">保存</el-button>
       </div>
+      <!--统一管理平台-->
       <div class="bottom">
         <p class="title">
           <img class="titile_icon"
                src="@/assets/images/setting/sys.png"
                alt="">
-          <span>统一管理平台设置（最多5个单IP/IP网段）</span>
+          <span>统一管理平台地址</span>
         </p>
-        <div style="margin-bottom:24px;">
+        <div class="item_addrs_item">
+          <div class="item_addrs">
+            <el-input class="select_box"
+                      placeholder="请输入统一平台IP地址"
+                      v-model="option.manage_ip"
+                      clearable>
+            </el-input>
+          </div>
+         <!-- <div class="item_addrs"
+               v-for="(item,index) in option.login_ip">
+            <el-input class="select_box"
+                      placeholder="请输入统一平台IP地址"
+                      v-model="item.ip"
+                      clearable>
+            </el-input>
+            <img src="@/assets/images/common/add.png"
+                 alt=""
+                 class="img_box"
+                 v-if="item.icon"
+                 @click="add_addr">
+            <img src="@/assets/images/common/del.png"
+                 alt=""
+                 class="img_box"
+                 @click="del_addr(item,index)"
+                 v-if="!item.icon">
+          </div>-->
+        </div>
+        <el-button type="primary"
+                   class="btn_i"
+                   @click="edit_manage_ip">保存</el-button>
+      </div>
+      <!--沙箱-->
+      <div class="bottom">
+        <p class="title">
+          <img class="titile_icon"
+               src="@/assets/images/setting/sys.png"
+               alt="">
+          <span>沙箱</span>
+        </p>
+        <div class="item_addrs_item">
+          <div class="item_addrs">
+            <el-input class="select_box"
+                      placeholder="请输入沙箱IP地址"
+                      v-model="option.sandbox_ip"
+                      clearable>
+            </el-input>
+          </div>
+          <!--<div class="item_addrs"
+               v-for="(item,index) in option.login_ip">
+            <img src="@/assets/images/common/add.png"
+                 alt=""
+                 class="img_box"
+                 v-if="item.icon"
+                 @click="add_addr">
+            <img src="@/assets/images/common/del.png"
+                 alt=""
+                 class="img_box"
+                 @click="del_addr(item,index)"
+                 v-if="!item.icon">
+          </div>-->
+        </div>
+        <el-button type="primary"
+                   class="btn_i"
+                   @click="edit_sandbox_ip">保存</el-button>
+      </div>
+      <!--IP地址设置 -->
+      <div class="bottom">
+        <p class="title">
+          <img class="titile_icon"
+               src="@/assets/images/setting/sys.png"
+               alt="">
+          <span>登录IP地址设置（最多5个单IP/IP网段）</span>
+        </p>
+        <div class="item_addrs_item">
           <div class="item_addrs"
                v-for="(item,index) in option.login_ip">
             <el-input class="select_box"
-                      placeholder="请输入统一管理平台IP地址（CIDR格式如192.168.1.0/24）"
+                      placeholder="IP地址或网段（CIDR格式如192.168.1.0/24）"
                       v-model="item.ip"
                       clearable>
             </el-input>
@@ -106,6 +180,7 @@ export default {
   name: "system_control_option",
   data () {
     return {
+      loading:false,
       option: {
         method: 2,
         method_list: [
@@ -274,6 +349,8 @@ export default {
         time: "",
         ntp: "",
         endpoint_ip: "",
+        manage_ip:'',
+        sandbox_ip:'',
         login_ip: [
           {
             ip: '',
@@ -289,9 +366,12 @@ export default {
     }
   },
   mounted () {
-    this.get_data()
     this.check_passwd()
-    this.get_login_ip()
+    this.get_data()
+    this.get_login_ip();
+
+    this.get_manage_ip();
+    this.get_sandbox_ip();
   },
   methods: {
     // 测试密码过期
@@ -331,7 +411,6 @@ export default {
       this.$axios.get('/yiiapi/seting/time-synchronization')
         .then(response => {
           let { status, data } = response.data;
-          console.log(data.data[0]);
           switch (data.data[0].type) {
             case 1:
               this.disabled.time = false
@@ -437,8 +516,6 @@ export default {
       this.$axios.get('/yiiapi/seting/get-allow-ip')
         .then(response => {
           let { status, data } = response.data;
-          console.log(data);
-          console.log(status);
           if (status == 0) {
             this.option.login_ip = []
             if (data.length == 0) {
@@ -481,8 +558,6 @@ export default {
       })
         .then(response => {
           let { status, data } = response.data;
-          console.log(data);
-          console.log(status);
           if (status == 0) {
             this.get_login_ip();
             this.$message(
@@ -514,14 +589,134 @@ export default {
     },
     del_addr (item, index) {
       this.option.login_ip.splice(index, 1);
-    }
+    },
+    /**
+     * ycl增加
+    * */
+    //统一管理平台
+    get_manage_ip(){
+      this.$axios.get('/yiiapi/seting/get-center-addr')
+        .then(resp => {
+          let { status, msg, data } = resp.data;
+          //console.log(resp.data);
+          if(status == 0){
+            this.option.manage_ip = data.ip;
+          }else {
+            this.$message({
+              type:'error',
+              message :msg
+            })
+          }
+
+        })
+        .catch(error => {
+          console.log(error);
+        })
+
+    },
+    edit_manage_ip(){
+
+      var reg=/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+
+      if(this.option.manage_ip == ''){
+        this.$message({
+          message: '统一平台ip地址不能为空!',
+          type: 'warning',
+        });
+        return false;
+      }
+      if(!reg.test(this.option.manage_ip)){
+        this.$message({
+          message: 'ip地址格式不正确，请输入正确格式!',
+          type: 'warning',
+        });
+        return false;
+      }
+
+      this.loading = true;
+      this.$axios.put('/yiiapi/seting/set-center-addr', {
+        ip: this.option.manage_ip
+      })
+        .then(resp => {
+          this.loading = false;
+          let { status, data } = resp.data;
+          if (status == 0) {
+            this.get_manage_ip();
+            this.$message({
+                message: '修改成功',
+                type: 'success',
+              });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    },
+    //沙箱
+    get_sandbox_ip(){
+      this.$axios.get('/yiiapi/seting/get-sandbox-addr')
+        .then(resp => {
+          let { status, msg, data } = resp.data;
+          if(status == 0){
+            this.option.sandbox_ip = data.ip;
+          }else {
+            this.$message({
+              type:'error',
+              message :msg
+            })
+          }
+
+        })
+        .catch(error => {
+          console.log(error);
+        })
+
+    },
+    edit_sandbox_ip(){
+
+      var reg=/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+
+      if(this.option.sandbox_ip == ''){
+        this.$message({
+          message: '沙箱ip地址不能为空!',
+          type: 'warning',
+        });
+        return false;
+      }
+      if(!reg.test(this.option.sandbox_ip)){
+        this.$message({
+          message: 'ip地址格式不正确，请输入正确格式!',
+          type: 'warning',
+        });
+        return false;
+      }
+
+      this.loading = true;
+      this.$axios.put('/yiiapi/seting/set-sandbox-addr', {
+        ip: this.option.sandbox_ip
+      })
+        .then(resp => {
+          this.loading = false;
+          let { status, data } = resp.data;
+          if (status == 0) {
+            this.get_sandbox_ip();
+            this.$message({
+              message: '修改成功',
+              type: 'success',
+            });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    },
   }
 }
 </script>
 
 <style scoped lang='less'>
 #system_control_option {
-  padding: 24px 56px 24px 24px;
+  padding: 24px;
   text-align: left;
   .content_box {
     min-height: 830px;
@@ -588,15 +783,18 @@ export default {
       padding: 24px 0 24px 24px;
       background: #fff;
       border-radius: 4px;
-      .item_addrs {
-        margin-bottom: 12px;
-      }
-      .img_box {
-        width: 16px;
-        height: 16px;
-        margin-left: 10px;
-        margin-top: 14px;
-        cursor: pointer;
+      .item_addrs_item{
+        margin-bottom: 24px;
+        .item_addrs {
+          margin-bottom: 12px;
+        }
+        .img_box {
+          width: 16px;
+          height: 16px;
+          margin-left: 10px;
+          margin-top: 14px;
+          cursor: pointer;
+        }
       }
     }
   }
