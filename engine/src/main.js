@@ -53,7 +53,6 @@ import gl_component from '@/components/encapse/index'
 Vue.use(gl_component);
 
 import '@/components/filters/index'
-
 import './assets/css/index.css'
 
 Vue.prototype.validSe = function (value, number = 255) {

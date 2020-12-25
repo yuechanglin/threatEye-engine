@@ -112,6 +112,14 @@ export default {
             );
             eventBus.$emit('reset')
           }
+          if (status == '600') {
+            this.$message(
+              {
+                message: msg,
+                type: 'warning',
+              }
+            );
+          }
         })
     },
     random (lower, upper) {
@@ -136,7 +144,7 @@ export default {
           console.log(error);
         });
     },
-    // 标记已读 
+    // 标记已读
     update (id, type) {
       this.$axios.get('/yiiapi/news/update', {
         params: {
