@@ -47,7 +47,7 @@ export default {
     };
   },
   mounted () {
-    this.check_passwd()
+    //this.check_passwd()
   },
   methods: {
     // 测试密码过期

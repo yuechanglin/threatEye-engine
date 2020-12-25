@@ -49,7 +49,7 @@ export default {
     };
   },
   mounted () {
-    this.check_passwd()
+    //this.check_passwd()
   },
   methods: {
     // 测试密码过期
@@ -81,7 +81,6 @@ export default {
         })
     },
     handleClick (tab, event) {
-      console.log(tab);
       switch (tab.name) {
         case "first":
           this.tab_show.first = true;

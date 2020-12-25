@@ -277,9 +277,10 @@ export default {
     }
   },
   mounted () {
+    this.check_passwd();
     this.get_data();
     this.get_version();
-    this.check_passwd();
+
   },
 
   methods: {

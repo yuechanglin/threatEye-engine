@@ -331,8 +331,9 @@ export default {
     }
   },
   mounted () {
-    this.get_data();
     this.check_passwd();
+    this.get_data();
+
     this.role_list();
     this.get_menu()
     this.getPwdLength()

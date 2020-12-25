@@ -88,8 +88,8 @@ export default {
   },
   components: { backTitle },
   created () {
-    this.get_news();
     this.check_passwd();
+    this.get_news();
   },
   mounted () {
   },

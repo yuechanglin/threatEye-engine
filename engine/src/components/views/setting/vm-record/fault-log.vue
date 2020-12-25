@@ -69,8 +69,9 @@ export default {
     }
   },
   mounted () {
-    this.get_data();
     this.check_passwd();
+    this.get_data();
+
   },
 
   methods: {
