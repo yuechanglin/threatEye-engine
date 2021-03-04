@@ -70,7 +70,6 @@ Vue.prototype.validSe = function (value, number = 255) {
 Vue.config.productionTip = false;
 const whiteList = ['/login', '/'];
 
-
 //全局路由钩子
 router.beforeEach((to, from, next) => {
   NProgress.start();
