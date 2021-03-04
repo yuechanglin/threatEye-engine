@@ -181,33 +181,11 @@
       };
     },
     mounted () {
-      this.check_passwd();
       this.get_data();
       this.get_license();
       this.get_version();
-
     },
     methods: {
-      // 测试密码过期
-      check_passwd () {
-        this.$axios.get('/yiiapi/site/check-passwd-reset')
-          .then((resp) => {
-            let {
-              status,
-              msg,
-              data
-            } = resp.data;
-            if (status == '602') {
-              this.$message(
-                {
-                  message: msg,
-                  type: 'warning',
-                }
-              );
-              eventBus.$emit('reset')
-            }
-          })
-      },
       get_data () {
         this.$axios.get('/yiiapi/license/get', {
           params: {
@@ -218,6 +196,7 @@
           .then(response => {
             console.log(response);
             if (response.data.status == 602) {
+              eventBus.$emit('reset')
               return false
             }
             this.license_list = response.data.data.license
@@ -229,6 +208,9 @@
           .catch(error => {
             console.log(error);
           })
+
+
+
       },
       // 获取license版本
       get_license () {
