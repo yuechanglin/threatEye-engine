@@ -104,7 +104,7 @@ export const asyncRouterMap = [
   },
   /*设置*/
   {
-    path: '/setting',
+    path: '/system',
     name: 'system',
     meta: {
       title: '设置',
@@ -114,7 +114,7 @@ export const asyncRouterMap = [
     component: Layout,
     children: [
       {
-        path: '/setting/account',
+        path: '/system/account',
         name: 'account',
         meta: {
           title: '用户管理',
@@ -127,7 +127,7 @@ export const asyncRouterMap = [
         component: () => import('@/components/views/setting/Account')
       },
       {
-        path: '/setting/electric',
+        path: '/system/electric',
         name: 'electric',
         meta: {
           title: '网络设置',
@@ -140,7 +140,7 @@ export const asyncRouterMap = [
         component: () => import('@/components/views/setting/Electric')
       },
       {
-        path: '/setting/option',
+        path: '/system/option',
         name: 'option',
         meta: {
           title: '系统设置',
@@ -153,7 +153,7 @@ export const asyncRouterMap = [
         component: () => import('@/components/views/setting/Option')
       },
       {
-        path: '/setting/record',
+        path: '/system/record',
         name: 'record',
         meta: {
           title: '审计日志',
@@ -166,7 +166,7 @@ export const asyncRouterMap = [
         component: () => import('@/components/views/setting/Record')
       },
       {
-        path: '/setting/licence',
+        path: '/system/licence',
         name: 'licence',
         meta: {
           title: '许可管理',

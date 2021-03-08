@@ -664,14 +664,7 @@ export default {
 
       var reg=/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
 
-      if(this.option.sandbox_ip == ''){
-        this.$message({
-          message: '沙箱ip地址不能为空!',
-          type: 'warning',
-        });
-        return false;
-      }
-      if(!reg.test(this.option.sandbox_ip)){
+      if(!reg.test(this.option.sandbox_ip) && this.option.sandbox_ip != ''){
         this.$message({
           message: 'ip地址格式不正确，请输入正确格式!',
           type: 'warning',

@@ -100,9 +100,8 @@ export default {
     }
   },
   mounted () {
-    this.check_passwd()
     this.get_data()
-
+    this.check_passwd()
   },
   methods: {
     // 测试密码过期
@@ -200,7 +199,7 @@ export default {
           } else {
             this.$axios.get('/yiiapi/site/check-auth-exist', {
               params: {
-                pathInfo: 'yararule/download',
+                pathInfo: 'userlog/export',
               }
             })
               .then(response => {

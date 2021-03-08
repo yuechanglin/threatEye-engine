@@ -30,7 +30,7 @@ axios.interceptors.request.use(
 );
 //响应拦截器即异常处理
 axios.interceptors.response.use(response => {
- // console.log(response)
+  // console.log(response)
   //status内层
   switch (response.data.status) {
     case 602:
@@ -44,6 +44,11 @@ axios.interceptors.response.use(response => {
       //return false;
       break;
     case 600:
+      console.log(response.data.msg)
+      Message.warning(response.data.msg);
+      break;
+    case 800:
+      console.log(response.data.msg)
       Router.push({
         path: '/600'
       });

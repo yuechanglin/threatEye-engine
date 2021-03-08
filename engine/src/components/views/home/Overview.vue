@@ -110,6 +110,7 @@ export default {
           this.loading = false;
           let {status, data} = response.data;
           // console.log(data);
+
           data.forEach(element => {
             this.equipment.cpu.unshift(element.cpu);
             this.equipment.mem.unshift(element.mem);
