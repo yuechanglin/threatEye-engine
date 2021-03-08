@@ -98,7 +98,7 @@ export default {
     }
   },
   mounted () {
-    this.check_passwd()
+   //this.check_passwd()
     this.get_data()
 
   },
