@@ -169,6 +169,7 @@
         <div class="content_item">
           <p>
             <span class="title">角色</span>
+            <span class="red">*</span>
           </p>
           <el-select class="select_box"
                      v-model="user_add.role"
@@ -257,6 +258,7 @@
         <div class="content_item">
           <p>
             <span class="title">角色</span>
+            <span class="red">*</span>
           </p>
           <el-select class="select_box"
                      v-model="user_edit.role"
@@ -331,9 +333,8 @@ export default {
     }
   },
   mounted () {
-    this.check_passwd();
     this.get_data();
-
+    this.check_passwd();
     this.role_list();
     this.get_menu()
     this.getPwdLength()
@@ -403,7 +404,7 @@ export default {
     get_menu () {
       this.$axios.get('/yiiapi/site/menu')
         .then(response => {
-         // console.log(response);
+          console.log(response);
         })
         .catch(error => {
           console.log(error);
@@ -420,7 +421,7 @@ export default {
       })
         .then(response => {
           this.loading = false
-          //console.log(response);
+          console.log(response);
           this.user_list = response.data.data
           this.user_list.data.forEach((item, index) => {
             item.index_cn = index + 1
@@ -439,7 +440,7 @@ export default {
         }
       })
         .then(response => {
-        //  console.log(response);
+          console.log(response);
           this.user_add.role_list = response.data.data.data
           this.user_edit.role_list = response.data.data.data
         })
@@ -451,7 +452,7 @@ export default {
     getPwdLength () {
       this.$axios.get('/yiiapi/site/get-passwd-length')
         .then(response => {
-         // console.log(response);
+          console.log(response);
           this.user_data.password = response.data.data
           this.user_data.placeholder = '请输入包含大写、小写、数字和特殊字符其中三项,' + response.data.data.min_passwd_len + '-' + response.data.data.max_passwd_len + '位密码'
         })
@@ -502,6 +503,54 @@ export default {
         );
         return false
       }
+
+      if (this.user_add.email_addr == '') {
+        this.$message(
+          {
+            message: '请输入邮箱',
+            type: 'warning',
+          }
+        );
+        return false
+      }
+      var email_reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+      if (!email_reg.test(this.user_add.email_addr)) {
+        this.$message(
+          {
+            message: '邮箱格式错误',
+            type: 'warning',
+          }
+        );
+        return false
+      }
+      if (this.user_add.mobile == '') {
+        this.$message(
+          {
+            message: '请输入手机号',
+            type: 'warning',
+          }
+        );
+        return false
+      }
+      var myreg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
+      if (!myreg.test(this.user_add.mobile)) {
+        this.$message(
+          {
+            message: '手机号格式错误',
+            type: 'warning',
+          }
+        );
+        return false
+      }
+      if (this.user_add.role == '') {
+        this.$message(
+          {
+            message: '请选择角色',
+            type: 'warning',
+          }
+        );
+        return false
+      }
       this.$axios.post('/yiiapi/user/user-add', {
         username: this.user_add.username,
         password: this.user_add.password,
@@ -512,7 +561,7 @@ export default {
         email_addr: this.user_add.email_addr,
       })
         .then(response => {
-         // console.log(response);
+          console.log(response);
           if (response.data.status == 1) {
             this.$message(
               {
@@ -582,13 +631,60 @@ export default {
         );
         return false
       }
+      if (this.user_edit.email_addr == '') {
+        this.$message(
+          {
+            message: '请输入邮箱',
+            type: 'warning',
+          }
+        );
+        return false
+      }
+      var email_reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+      if (!email_reg.test(this.user_edit.email_addr)) {
+        this.$message(
+          {
+            message: '邮箱格式错误',
+            type: 'warning',
+          }
+        );
+        return false
+      }
+      if (this.user_edit.mobile == '') {
+        this.$message(
+          {
+            message: '请输入手机号',
+            type: 'warning',
+          }
+        );
+        return false
+      }
+      var myreg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
+      if (!myreg.test(this.user_edit.mobile)) {
+        this.$message(
+          {
+            message: '手机号格式错误',
+            type: 'warning',
+          }
+        );
+        return false
+      }
+      if (this.user_edit.role == '') {
+        this.$message(
+          {
+            message: '请选择角色',
+            type: 'warning',
+          }
+        );
+        return false
+      }
       this.$axios.get('/yiiapi/user/get-password-reset-token', {
         params: {
           id: this.user_edit.id
         }
       })
         .then(response => {
-         // console.log(response.data);
+          console.log(response.data);
           this.token_data = response.data.data
           localStorage.setItem("token", response.data.data.token);
           this.$axios.put('/yiiapi/user/reset-password?token=' + localStorage.getItem("token"), {
@@ -653,7 +749,7 @@ export default {
           }
         })
           .then(response => {
-            //console.log(response);
+            console.log(response);
             if (response.data.status == 0) {
               this.get_data();
               this.$message(
@@ -670,11 +766,14 @@ export default {
                 }
               );
             }
+            this.$refs.multipleTable.clearSelection()
           })
           .catch(error => {
             console.log(error);
           })
       }).catch(() => {
+        this.select_list = []
+        this.$refs.multipleTable.clearSelection()
         this.$message({
           type: 'info',
           message: '已取消删除'

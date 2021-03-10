@@ -67,7 +67,7 @@
       </el-col>
     </el-row>
 
-    <!-- 修改个人信息弹窗 -->
+    <!-- 修改密码弹窗 -->
     <el-dialog class="pop_box_password"
                :close-on-click-modal="false"
                :modal-append-to-body="false"
@@ -208,6 +208,9 @@ export default {
     })
   },
   methods: {
+    /*login(){
+      this.$router.push('/', () => {});
+    },*/
     enter_home () {
       this.$router.push({ path: '/home/overview' });
     },
@@ -251,9 +254,7 @@ export default {
           console.log(error);
         })
     },
-    /**
-     *以下是修改个人信息
-     * */
+
     //修改个人信息
     modifyPassword () {
       this.getPwdLength();
@@ -302,20 +303,42 @@ export default {
         );
         return false
       }
-      if (this.user_edit.mobile == '') {
-        this.$message(
-          {
-            message: '手机号不能为空',
-            type: 'error',
-          }
-        );
-        return false
-      }
+      var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
       if (this.user_edit.email_addr == '') {
         this.$message(
           {
             message: '邮箱不能为空',
-            type: 'error',
+            type: 'warning',
+          }
+        );
+        return false
+      }
+
+      if (!reg.test(this.user_edit.email_addr)) {
+        this.$message(
+          {
+            message: '邮箱验证错误',
+            type: 'warning',
+          }
+        );
+        return false
+      }
+
+      var reg1 = /^1[3456789]\d{9}$/;
+      if (this.user_edit.mobile == '') {
+        this.$message(
+          {
+            message: '手机号不能为空',
+            type: 'warning',
+          }
+        );
+        return false
+      }
+      if (!reg1.test(this.user_edit.mobile)) {
+        this.$message(
+          {
+            message: '手机号验证错误',
+            type: 'warning',
           }
         );
         return false
@@ -418,7 +441,7 @@ export default {
     clearInterval(this.timer); //关闭
   },
   destroyed () {
-  //  console.log('33333');
+    //  console.log('33333');
   },
 }
 </script>
@@ -531,8 +554,7 @@ export default {
       }
     }
   }
-  /deep/
-  .el-dialog {
+  /deep/ .el-dialog {
     width: 550px;
     .el-dialog__body {
       width: 550px;
@@ -569,7 +591,6 @@ export default {
 .nav-dropdown-menu {
   top: 60px !important;
   font-family: 'PingFang';
-  min-width: 160px;
   a {
     text-decoration: none;
   }
@@ -630,11 +651,10 @@ export default {
         .btn_box {
           height: 42px;
           text-align: center;
-          margin-bottom: 12px;
+
           .ok_btn {
             width: 136px;
             height: 42px;
-            border-color: #0070ff;
             background: #0070ff;
             color: #fff;
           }

@@ -22,7 +22,7 @@
       <el-row class="container_item">
         <el-col :span="24">
           <div class="top_item">
-            <span class="title">Memery</span>
+            <span class="title">内存</span>
             <div class="content">
               <home-mid  v-if="loading_mid" :options="equipment"></home-mid>
             </div>
@@ -34,7 +34,7 @@
       <el-row class="container_item">
         <el-col :span="24">
           <div class="top_item">
-            <span class="title">Disk</span>
+            <span class="title">硬盘</span>
             <div class="content">
               <home-bom  v-if="loading_bom" :options="equipment"></home-bom>
             </div>

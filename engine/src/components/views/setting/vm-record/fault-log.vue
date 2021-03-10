@@ -163,6 +163,7 @@ export default {
           })
       }).catch(() => {
         this.select_list = []
+        this.$refs.multipleTable.clearSelection()
         this.$message({
           type: 'info',
           message: '已取消下载'
@@ -218,6 +219,7 @@ export default {
             console.log(error);
           })
       }).catch(() => {
+        this.$refs.multipleTable.clearSelection()
         this.$message({
           type: 'info',
           message: '已取消删除'

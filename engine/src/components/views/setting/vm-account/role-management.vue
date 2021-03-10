@@ -529,6 +529,7 @@ export default {
         })
           .then(response => {
             console.log(response.data);
+            this.$refs.multipleTable.clearSelection();
             if (response.data.status == 0) {
               this.get_data();
               this.$message(
@@ -550,6 +551,8 @@ export default {
             console.log(error);
           })
       }).catch(() => {
+        this.select_list = []
+        this.$refs.multipleTable.clearSelection();
         this.$message({
           type: 'info',
           message: '已取消删除'

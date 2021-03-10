@@ -20,7 +20,7 @@ Vue.prototype.$echarts = echarts;
 // 引入axios
 import axios from './https/axios'
 Vue.prototype.$axios = axios;
-//axios.defaults.baseURL = '/api/' // api 即上面 vue.config.js 中配置的地址
+axios.defaults.baseURL = '/api/' // api 即上面 vue.config.js 中配置的地址
 import uploader from 'vue-simple-uploader'
 
 import "echarts/extension/bmap/bmap.js";
@@ -64,7 +64,7 @@ Vue.prototype.validSe = function (value, number = 255) {
     });
   }
   return value;
-}
+};
 
 
 Vue.config.productionTip = false;
